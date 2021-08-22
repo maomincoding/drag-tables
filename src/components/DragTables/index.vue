@@ -447,15 +447,6 @@ export default {
         }
       }
     },
-    // 删除(数组项)
-    useDelItem(element, currentData) {
-      for (let j = 0; j < currentData.length; j++) {
-        const item = currentData[j];
-        if (item === element) {
-          currentData.splice(j, 1);
-        }
-      }
-    },
     // 还原初始状态
     useReduction(i) {
       const arr = [

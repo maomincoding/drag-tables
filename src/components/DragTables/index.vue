@@ -1,4 +1,3 @@
-<!--权限管理 -->
 <template>
     <div
       class="main-box"
@@ -7,9 +6,11 @@
       element-loading-spinner="el-icon-loading"
     >
       <div class="main-l">
+<!-- 游客 -->
         <div class="top-name">
           <div class="top-box">
             <div class="top-count">
+              人数：
               {{
                 initStatus.newGuestList ? guestData.length : newGuestList.length
               }}
@@ -55,6 +56,7 @@
         </div>
       </div>
       <div class="main-r">
+<!-- 管理员 -->
         <div class="top-name">
           <p>管理员</p>
         </div>
@@ -90,9 +92,11 @@
             </template>
           </el-table-column>
         </el-table>
+<!-- 操作员 -->
         <div class="top-name">
           <div class="top-box">
             <div class="top-count">
+              人数：
               {{
                 initStatus.newOperatorList
                   ? operatorData.length
@@ -134,26 +138,19 @@
                 align="center"
                 show-overflow-tooltip
               ></el-table-column>
-              <el-table-column align="center" label="分配开关">
+              <el-table-column align="center" label="操作">
                 <template>
-                  <div class="breaker-btn"></div>
-                </template>
-              </el-table-column>
-              <el-table-column
-                align="center"
-                label="分配场景"
-                style="position: relative"
-              >
-                <template>
-                  <div class="scene-btn"></div>
+                   <el-button size="small" @click.stop="">编辑</el-button>
                 </template>
               </el-table-column>
             </el-table>
           </div>
         </div>
+<!-- 电工 -->
         <div class="top-name">
           <div class="top-box">
             <div class="top-count">
+              人数：
               {{
                 initStatus.newElectricianList
                   ? electricianData.length
@@ -194,30 +191,22 @@
                 align="center"
                 show-overflow-tooltip
               ></el-table-column>
-              <el-table-column align="center" label="分配开关">
+              <el-table-column align="center" label="操作">
                 <template>
-                  <div class="breaker-btn"></div>
-                </template>
-              </el-table-column>
-              <el-table-column
-                align="center"
-                label="分配场景"
-                style="position: relative"
-              >
-                <template>
-                  <div class="scene-btn"></div>
+                    <el-button size="small" @click.stop="">编辑</el-button>
                 </template>
               </el-table-column>
             </el-table>
           </div>
         </div>
       </div>
+<!-- 密码弹窗 -->
       <el-dialog :visible.sync="passwordView"  width="30%">
         <el-form ref="form">
           <el-form-item>
             <el-input
               v-model="password"
-              placeholder="请输入超级管理员密码"
+              placeholder="请输入密码"
               type="password"
               show-password
             ></el-input>
@@ -264,9 +253,6 @@ export default {
     selectElectricianList: [],
     managerOldIndex: 0,
   }),
-  computed: {
-    // ...mapGetters(['roles', 'account']),
-  },
   watch: {
     passwordView: "watchPasswordView",
   },
@@ -278,12 +264,10 @@ export default {
       newOperatorList: ["operatorData", 1],
       newElectricianList: ["electricianData", 2],
     };
-    this.loadLoading = true;
     this.guestData = tableData.guestData;
     this.managerData = tableData.managerData;
     this.electricianData = tableData.electricianData;
     this.operatorData = tableData.operatorData;
-    this.loadLoading = false;
   },
   mounted() {
     this.sortGuest();
@@ -292,19 +276,23 @@ export default {
     this.sortManager();
   },
   methods: {
+    // 密码框置空
     watchPasswordView(val) {
       if (!val) {
         this.password = "";
       }
     },
+    // 选择游客
     guestDataSelect(row) {
       row.flag = !row.flag;
       this.$refs.guestData.toggleRowSelection(row, row.flag);
     },
+    // 选择操作员
     operatorDataSelect(row) {
       row.flag = !row.flag;
       this.$refs.operatorData.toggleRowSelection(row, row.flag);
     },
+    // 选择电工
     electricianDataSelect(row) {
       row.flag = !row.flag;
       this.$refs.electricianData.toggleRowSelection(row, row.flag);
@@ -744,58 +732,43 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .top-name {
   padding: 10px;
-  background: #032767;
+  background: #333;
   font-size: 14px;
   position: relative;
 }
 .top-name > p {
   color: #00a7ff;
   text-align: center;
+  font-size: 16px;
 }
 .main-box {
   display: flex;
-  padding: 10px 20px;
   justify-content: space-between;
-  box-shadow: 0px 0 12px 1px inset #ccc;
 }
-.main-l {
-  width: 48%;
-  position: relative;
-}
-.main-r {
+.main-l,.main-r {
   width: 48%;
   position: relative;
 }
 .table-b {
   position: relative;
 }
-.allBtn {
-  position: absolute;
-  right: 10px;
-  top: 5px;
-  background: #0ea6e4;
-  color: #fff;
-  border: 0;
-}
 .isdel {
   text-align: center;
   font-size: 18px;
   color: #fff;
 }
-
 .top-box {
   display: flex;
   height: 30px;
   justify-content: space-between;
   align-items: center;
 }
-
 .top-count {
   color: #fff;
-  font-size: 18px;
+  font-size: 14px;
   margin-left:10px ;
 }
 .utable-box {
@@ -806,28 +779,6 @@ export default {
   overflow: auto;
   height: 230px;
   margin-bottom: 10px;
-  border: 1px solid #002368;
-  .table-l {
-    .breaker-btn {
-      width: 22px;
-      height: 18px;
-      margin: 0 auto;
-      background: red;
-      cursor: pointer;
-      &:hover {
-        transform: scale(0.9);
-      }
-    }
-    .scene-btn {
-      width: 22px;
-      height: 18px;
-      margin: 0 auto;
-      background: blue;
-      cursor: pointer;
-      &:hover {
-        transform: scale(0.9);
-      }
-    }
-  }
+  border: 1px solid #333;
 }
 </style>

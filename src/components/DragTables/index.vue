@@ -228,7 +228,7 @@ import { deepClone } from "./utils/index";
 import tableData from "./utils/data";
 
 export default {
-  name: "Authority",
+  name: "DragTables",
   data: () => ({
     passwordView: false,
     loadLoading: false,
@@ -606,6 +606,7 @@ export default {
       const el = this.$refs.electricianData.$el.querySelectorAll(
         ".el-table__body-wrapper > table> tbody"
       )[0];
+      console.log(el)
       Sortable.create(el, {
         ghostClass: "sortable-ghost",
         sort: false,

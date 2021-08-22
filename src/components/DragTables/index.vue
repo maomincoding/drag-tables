@@ -297,7 +297,7 @@ export default {
       row.flag = !row.flag;
       this.$refs.electricianData.toggleRowSelection(row, row.flag);
     },
-    // 确定超级管理员
+    // 确定拖拽到管理员
     okChangeManager() {
       if (this.password.trim().length > 0) {
         const item = this[this.fromItem][this.managerOldIndex];
@@ -349,7 +349,7 @@ export default {
         }
       } else {
         this.$message({
-          message: "请输入超级管理员密码",
+          message: "请输入密码",
           type: "warning",
         });
       }

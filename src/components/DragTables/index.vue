@@ -474,7 +474,6 @@ export default {
       ];
       this.$refs[arr[i].data].clearSelection();
       this[arr[i].sletData] = [];
-      this[arr[i].sletView] = false;
     },
     // 监听游客表格选择
     selectionGuestChange(val) {
@@ -606,7 +605,6 @@ export default {
       const el = this.$refs.electricianData.$el.querySelectorAll(
         ".el-table__body-wrapper > table> tbody"
       )[0];
-      console.log(el)
       Sortable.create(el, {
         ghostClass: "sortable-ghost",
         sort: false,
